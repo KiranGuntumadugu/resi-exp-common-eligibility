@@ -1,0 +1,33 @@
+version: 2
+registries:
+  rogers-maven-virtual:
+    type: maven-repository
+    url: https://artifactory.rogers.com/artifactory/rogers-maven-virtual
+    username: ${{secrets.ARTIFACTORY_CREDENTIALS_USR}}
+    password: ${{secrets.ARTIFACTORY_CREDENTIALS_PSW}}
+  rogers-docker-virtual:
+    type: docker-registry
+    url: https://rogers-docker-virtual.artifactory.rogers.com/
+    username: ${{secrets.ARTIFACTORY_CREDENTIALS_USR}}
+    password: ${{secrets.ARTIFACTORY_CREDENTIALS_PSW}}
+updates:
+  - package-ecosystem: gradle
+    directory: /
+    registries:
+      - rogers-maven-virtual
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+  - package-ecosystem: docker
+    directory: /api/docker
+    registries:
+      - rogers-docker-virtual
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: fix
+      prefix-development: chore

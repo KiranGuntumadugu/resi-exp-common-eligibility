@@ -1,0 +1,14 @@
+plugins {
+    // Apply the plugin "com.rogers.fwng.gradle.springboot-application" which is used in application projects
+    id("com.rogers.fwng.gradle.springboot-application")
+}
+dependencies {
+    implementation project(':common')
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // Cassandra + Redis - Rogers enterprise starters
+    implementation "com.rogers.fwng.gradle.frictionless-gradle-fw:spring-boot-starter-cassandradb"
+    implementation 'com.rogers.fwng.gradle.frictionless-gradle-fw:spring-boot-starter-redis'
+
+    implementation "com.rogers.api.ch-modules:lib-logger17:${libLoggerVersion}"
+}

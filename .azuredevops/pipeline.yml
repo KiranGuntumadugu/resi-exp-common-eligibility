@@ -1,0 +1,34 @@
+name: $(Rev:r)
+
+resources:
+  repositories:
+    - repository: shared
+      type: github
+      endpoint: svcdawsdev
+      name: RogersCommunications/enterprise-ado-pipelines
+      ref: refs/heads/main
+
+schedules:
+  - cron: '30 4 * * *'
+    displayName: Scheduled Dependency Check
+    always: true
+    batch: true
+    branches:
+      include:
+        - main
+
+extends:
+  template: spring-boot.yml@shared
+  parameters:
+    jdk: '21'
+    repo: ch-docker-virtual
+    disabled_stage:
+      - codeql
+      - problem-detection
+      - source-stats
+    # If you want build results sent to your Teams Channel, uncomment and update url
+    #teams: https://rcirogers.webhook.office.com/webhookb2/f318eabe-c702-4d0c-8378-2cf04677e3eb@0ab4cbbf-4bc7-4826-b52c-a14fed5286b9/JenkinsCI/8a577c7e52464a2b96db6ff3df7b95cc/b4413520-e153-4ab8-bf05-99df83db23ec
+    # Integration test, additional containers, uncomment next 3 lines
+    #databases:
+    #  - type: cassandra
+    #    version: '3.11'

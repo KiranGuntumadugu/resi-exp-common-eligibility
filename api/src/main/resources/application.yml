@@ -1,0 +1,64 @@
+application:
+  description: Commerce Internet Data Usage Service
+  threadPool:
+    corePool: 1
+    maxPool: 10
+    queueCapacity: 10
+
+api:
+  title: API Swagger
+  version: 1.0.0
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+server:
+  port: 8080
+  service-key: 473f0bc4-0117-49e1-b32c-934908597283
+spring:
+  application:
+    name: experience-oneview-common-template
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 60000
+            readTimeout: 60000
+            loggerLevel: basic
+      okhttp:
+        enabled: true
+  # Redis host and other configs are already available in application-redis.yml, spring will automatically pick it up when the profile is active. No need to duplicate here.
+  data:
+    redis:
+      default-ttl: 3600
+      caches-ttl:
+        test_cache: 3600
+
+  ssl:
+    bundle:
+      jks:
+        cassandra:
+          truststore:
+            location: ${CASSANDRA_TRUST_STORE}
+            password: ${CASSANDRA_TRUST_STORE_PWD}
+            type: ${CASSANDRA_TRUSTSTORE_TYPE:JKS}
+
+  cassandra:
+    contact-points: ${CASSANDRA_ENDPOINTS}
+    port: ${CASSANDRA_PORT}
+    keyspace-name: ${CASSANDRA_COM_KEYSPACE}
+    local-datacenter: ${CASSANDRA_DATA_CENTER}
+    username: ${CASSANDRA_COM_USER}
+    password: ${CASSANDRA_COM_PASSWORD}
+    ssl:
+      enabled: ${CASSANDRA_SSL}
+      bundle: cassandra
+    schema-action: none
+    ttl-seconds: ${CASSANDRA_TTL_SECONDS:3600}

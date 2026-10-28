@@ -1,0 +1,22 @@
+sonar {
+    properties {
+        // Exclude only DTOs, models, and generated code from coverage calculation
+        property 'sonar.coverage.exclusions', [
+                '**/constants/**',          // constant files
+                '**/model/**',              // DTOs and domain models
+                '**/response/**',           // Response DTOs
+                '**/request/**',            // Request DTOs
+                '**/exception/**',          // Exception classes
+                '**/config/**',             // Spring configuration classes
+                '**/Application.java',      // Main application class
+        ].join(',')
+
+        // Exclude generated and vendor code from all analyses
+        property 'sonar.exclusions', '**/generated/**,**/vendor/**'
+
+        // Exclude templates and generated code from duplication detection
+        property 'sonar.cpd.exclusions', '**/templates/**,**/generated/**'
+    }
+}
+
+

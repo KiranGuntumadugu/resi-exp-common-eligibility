@@ -1,0 +1,3 @@
+plugins {
+    id("com.rogers.fwng.gradle.springboot-library")
+}

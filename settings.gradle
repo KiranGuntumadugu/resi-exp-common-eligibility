@@ -1,0 +1,21 @@
+pluginManagement{
+    repositories{
+        mavenCentral()
+        mavenLocal()
+        gradlePluginPortal()
+        maven {
+            url = "${artifactory_url}/${artifactory_repoKey}"
+            credentials{
+                username artifactory_username
+                password artifactory_password
+            }
+        }
+    }
+}
+
+plugins {
+    id("com.rogers.fwng.gradle.base.auto-include") version "${rogersBaseAutoIncludeVersion}"
+}
+
+rootProject.name = 'resi-exp-oneview-common-template'
+
